@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+  <script>
+
+  function Ticker() {
+   i = 0
+  };
+
+  Ticker.prototype = {
+   tick: function() {
+   console.log(this.i++);
+   }
+  };
+
+  var ticker = new Ticker();
+  setInterval(ticker.tick, 1000);
+
+  </script>
+</body>
+</html>
