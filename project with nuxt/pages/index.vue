@@ -5,7 +5,6 @@
     <hr>
     <h4>Current Time is {{$store.state.currentTime}}</h4>
 
-
     <button @click="all">All flights</button>
     <button @click="arriv">Arrivals</button>
     <button @click="dep">Departures</button>
@@ -34,27 +33,31 @@
     </div>
 
     <hr>
-    <div class="container"  v-for='item in filtered' :key='item.number'>
-      <div class="row">
-        <div class="col-sm">
-          {{item.time}}
-        </div>
-        <div class="col-sm">
-          {{item.name}}
-        </div>
-        <div class="col-sm">
-          {{item.number}}
-        </div>
-        <div class="col-sm">
-          {{item.status}}
+    <transition-group tag="div" name="list">
+      <div class="container ii"  v-for='item in filtered' :key='item.number'>
+        <div class="row">
+          <div class="col-sm">
+            {{item.time}}
+          </div>
+          <div class="col-sm">
+            {{item.name}}
+          </div>
+          <div class="col-sm">
+            {{item.number}}
+          </div>
+          <div class="col-sm">
+            {{item.status}}
+          </div>
         </div>
       </div>
-    </div>
+    </transition-group>
 
-    <div v-if="show" class="red">
-      No one was found.
-      <br> Please put number of flight more carefully.
-    </div>
+    <transition name="iff">
+      <div v-if="show" class="red">
+        No one was found.
+        <br> Please put number of flight more carefully.
+      </div>
+    </transition>
 
  </section>
 </template>
@@ -107,5 +110,25 @@ export default {
 <style>
   .red {
     color: red;
+  }
+
+  .ii {
+    display: inline-block;
+    transition: all 1s;
+  }
+  .list-enter, .list-leave-to {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .list-leave-active {
+    position: absolute;
+  }
+
+  .iff-enter, .iff-leave-to {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  .iff-enter-active, .iff-leave-active {
+    transition: all 1s ease;
   }
 </style>
